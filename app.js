@@ -29,6 +29,22 @@
   const pctOf = (part, whole) => (whole ? Math.round((part / whole) * 100) : null);
   function monthLabel(m) { const [y, mo] = m.split("-"); return new Date(+y, +mo - 1, 1).toLocaleDateString("en-AU", { month: "short", year: "numeric" }); }
 
+  // Budgets carry forward: a month with no explicit budget for a category inherits
+  // the most recent earlier month that does. Returns [{category_id, amount_aud, inherited, from}].
+  async function effectiveBudgets(month) {
+    const all = await DB.getBudgets();
+    const byCat = {};
+    all.forEach((b) => { (byCat[b.category_id] = byCat[b.category_id] || []).push(b); });
+    const out = [];
+    for (const cid in byCat) {
+      const prior = byCat[cid].filter((b) => b.month <= month).sort((a, b) => a.month.localeCompare(b.month));
+      if (!prior.length) continue;
+      const latest = prior[prior.length - 1];
+      out.push({ category_id: cid, amount_aud: latest.amount_aud, inherited: latest.month !== month, from: latest.month });
+    }
+    return out;
+  }
+
   function toast(msg) {
     const t = $("#toast"); t.textContent = msg; t.classList.add("show");
     clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 1800);
@@ -83,7 +99,7 @@
 
     // 2) This month's dashboard
     const txns = await DB.getTransactions();
-    const budgets = await DB.getBudgets(state.month);
+    const budgets = await effectiveBudgets(state.month);
     const monthTxns = txns.filter((t) => t.date.slice(0, 7) === state.month);
 
     const spentByCat = {};
@@ -249,6 +265,8 @@
   // ================= TRANSACTIONS =================
   routes.transactions = async function () {
     app.appendChild(el(`<h1 class="screen-title">History</h1>`));
+    const chartCard = el(`<div class="card" id="chartCard"></div>`);
+    app.appendChild(chartCard);
     const bar = el(`<div class="filters">
       <select id="fMonth" style="flex:1"><option value="">All months</option>${monthOptions("").replace(/selected/g, "")}</select>
       <select id="fCat" style="flex:1"><option value="">All categories</option>${categories.map((c) => `<option value="${c.id}">${esc(c.name)}</option>`).join("")}</select>
@@ -258,8 +276,36 @@
     const listCard = el(`<div class="card"></div>`);
     app.appendChild(listCard);
 
+    function renderChart(all) {
+      const totals = {};
+      all.forEach((t) => { const m = t.date.slice(0, 7); totals[m] = (totals[m] || 0) + (t.amount_aud || 0); });
+      const months = Object.keys(totals).sort();
+      if (!months.length) { chartCard.style.display = "none"; return; }
+      chartCard.style.display = "";
+      const max = Math.max(...months.map((m) => totals[m]));
+      const sel = $("#fMonth").value;
+      const selTotal = sel ? (totals[sel] || 0) : months.reduce((a, m) => a + totals[m], 0);
+      const avg = months.reduce((a, m) => a + totals[m], 0) / months.length;
+      const head = sel ? `${monthLabel(sel)} · ${fmt0(selTotal)}` : `${months.length} months · avg ${fmt0(avg)}`;
+      chartCard.innerHTML = `<div class="chart-head"><h3>Monthly spend</h3><span class="chart-sel mono">${esc(head)}</span></div>`;
+      const chart = el(`<div class="mchart"></div>`);
+      months.forEach((m) => {
+        const h = max ? Math.max(4, Math.round((totals[m] / max) * 82)) : 4;
+        const active = sel === m;
+        const b = el(`<button class="mbar ${active ? "active" : ""}" aria-label="${monthLabel(m)} ${fmt0(totals[m])}">
+          <span class="mtop mono">${sel === m ? fmt0(totals[m]) : ""}</span>
+          <span class="bar" style="height:${h}px"></span>
+          <span class="mlabel">${new Date(m + "-01T00:00:00").toLocaleDateString("en-AU", { month: "short" })}${m.slice(5) === "01" ? " " + m.slice(2, 4) : ""}</span></button>`);
+        b.addEventListener("click", () => { const cur = $("#fMonth").value; $("#fMonth").value = cur === m ? "" : m; render(); });
+        chart.appendChild(b);
+      });
+      chartCard.appendChild(chart);
+      chart.scrollLeft = chart.scrollWidth; // show most recent
+    }
+
     async function render() {
       const all = await DB.getTransactions();
+      renderChart(all);
       const m = $("#fMonth").value, c = $("#fCat").value, q = $("#fSearch").value.trim().toLowerCase();
       let rows = all.filter((t) =>
         (!m || t.date.slice(0, 7) === m) &&
@@ -319,18 +365,23 @@
     app.appendChild(el(`<div style="display:flex;justify-content:space-between;align-items:center">
       <h1 class="screen-title" style="margin:0">Budgets</h1>
       <select id="bMonth" style="width:auto">${monthOptions(state.month)}</select></div>`));
-    app.appendChild(el(`<div class="small muted" style="margin:4px 2px 12px">Set a monthly AUD budget per category. No rollover — each month starts fresh.</div>`));
+    app.appendChild(el(`<div class="small muted" style="margin:4px 2px 12px">Each month carries forward the budget you last set. Blank fields inherit; type to override just that month.</div>`));
     const card = el(`<div class="card"></div>`);
     app.appendChild(card);
 
     async function render() {
-      const budgets = await DB.getBudgets(state.month);
-      const bmap = {}; budgets.forEach((b) => { bmap[b.category_id] = b.amount_aud; });
+      const explicit = await DB.getBudgets(state.month);
+      const emap = {}; explicit.forEach((b) => { emap[b.category_id] = b.amount_aud; });
+      const eff = await effectiveBudgets(state.month);
+      const effMap = {}; eff.forEach((b) => { effMap[b.category_id] = b; });
       card.innerHTML = `<h3>${esc(monthLabel(state.month))}</h3>`;
       categories.forEach((c) => {
-        const row = el(`<div class="row" style="align-items:center;margin-bottom:10px">
-          <div class="col" style="font-weight:600">${esc(c.name)}</div>
-          <div style="width:130px"><input type="number" step="0.01" placeholder="—" data-cat="${c.id}" value="${bmap[c.id] != null ? bmap[c.id] : ""}"></div>
+        const own = emap[c.id];
+        const inh = own == null ? effMap[c.id] : null; // inherited value shown as placeholder
+        const ph = inh ? `${Math.round(inh.amount_aud)} · from ${monthLabel(inh.from)}` : "—";
+        const row = el(`<div class="brow">
+          <div class="bcat">${esc(c.name)}${inh ? ` <span class="binherit">inherited</span>` : ""}</div>
+          <div class="bin"><input type="number" step="0.01" inputmode="decimal" placeholder="${esc(ph)}" data-cat="${c.id}" value="${own != null ? own : ""}"></div>
         </div>`);
         card.appendChild(row);
       });
@@ -338,7 +389,7 @@
         inp.addEventListener("change", async () => {
           const v = inp.value === "" ? null : parseFloat(inp.value);
           await DB.setBudget(inp.dataset.cat, state.month, v);
-          toast("Budget saved");
+          toast("Budget saved"); render(); // re-render so inherited tags update
         });
       });
     }
@@ -403,20 +454,27 @@
     // Sync (Supabase)
     const synced = !!(DB && DB._supabase);
     const cfg = Config.all();
-    const statusPill = synced
-      ? `<span class="pill">● Synced via Supabase</span>`
-      : `<span class="flag">● Local only (this device)</span>`;
+    const host = cfg.supabase_url ? cfg.supabase_url.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : "";
     const syncCard = el(`<div class="card"><h3>Cross-device sync</h3>
-      <div style="margin-bottom:10px">${statusPill}</div>
-      <div class="small muted" style="margin-bottom:12px">Paste your project's URL and anon public key to sync phone + laptop. Run <code>supabase/schema.sql</code> (and <code>migrate_transactions.sql</code>) first. See <code>README.md</code>.</div>
-      <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="https://xxxx.supabase.co" value="${esc(cfg.supabase_url || "")}"></div>
-      <div class="field"><label>Supabase anon key</label><input type="text" id="s_skey" placeholder="eyJhbGci…" value="${esc(cfg.supabase_key || "")}"></div>
-      <div class="btn-row">
-        <button class="btn btn-sm" id="s_synsave">${synced ? "Reconnect" : "Connect"}</button>
-        ${cfg.supabase_url ? `<button class="btn btn-danger btn-sm" id="s_syndrop">Disconnect</button>` : ""}
+      <div class="sync-status">
+        <span class="${synced ? "pill" : "flag"}">● ${synced ? "Synced via Supabase" : "Local only (this device)"}</span>
+        ${synced ? `<button class="linkbtn" id="s_manage">Manage</button>` : ""}
+      </div>
+      ${synced ? `<div class="small muted mono" style="margin-top:8px">${esc(host)}</div>` : ""}
+      <div id="syncForm" style="${synced ? "display:none;" : ""}margin-top:13px">
+        <div class="small muted" style="margin-bottom:12px">Paste your project's URL and publishable key to sync this device. Run <code>supabase/schema.sql</code> (and <code>policies.sql</code>) first. See <code>README.md</code>.</div>
+        <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="https://xxxx.supabase.co" value="${esc(cfg.supabase_url || "")}"></div>
+        <div class="field"><label>Supabase publishable key</label><input type="text" id="s_skey" placeholder="sb_publishable_…" value="${esc(cfg.supabase_key || "")}"></div>
+        <div class="btn-row">
+          <button class="btn btn-sm" id="s_synsave">${synced ? "Reconnect" : "Connect"}</button>
+          ${cfg.supabase_url ? `<button class="btn btn-danger btn-sm" id="s_syndrop">Disconnect</button>` : ""}
+        </div>
       </div>
     </div>`);
     app.appendChild(syncCard);
+    if ($("#s_manage")) $("#s_manage").addEventListener("click", () => {
+      const f = $("#syncForm"); f.style.display = f.style.display === "none" ? "block" : "none";
+    });
     $("#s_synsave").addEventListener("click", async () => {
       const url = $("#s_surl").value.trim(), key = $("#s_skey").value.trim();
       if (!url || !key) { toast("Enter URL and key"); return; }
