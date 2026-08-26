@@ -7,6 +7,11 @@
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const app = $("#app");
 
+  // Default Supabase connection so every device auto-connects with no setup.
+  // NOTE: this key ships in the public app bundle — protection is the obscure URL + passcode.
+  const DEFAULT_SUPABASE_URL = "https://pzwcinjsfuepfzmqeluv.supabase.co";
+  const DEFAULT_SUPABASE_KEY = "sb_publishable_FgBVnKxYiOqVIzjAYWz8Ug_S822S0hC";
+
   // ---- state ----
   let categories = [];
   let settings = {};
@@ -451,46 +456,47 @@
       settings.passcode = ""; Config.set("passcode", ""); toast("Passcode removed"); route();
     });
 
-    // Sync (Supabase)
+    // Sync (Supabase). Auto-connects via a built-in default unless disconnected.
     const synced = !!(DB && DB._supabase);
     const cfg = Config.all();
-    const host = cfg.supabase_url ? cfg.supabase_url.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : "";
+    const effUrl = cfg.supabase_url || DEFAULT_SUPABASE_URL;
+    const host = effUrl.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
     const syncCard = el(`<div class="card"><h3>Cross-device sync</h3>
       <div class="sync-status">
         <span class="${synced ? "pill" : "flag"}">● ${synced ? "Synced via Supabase" : "Local only (this device)"}</span>
-        ${synced ? `<button class="linkbtn" id="s_manage">Manage</button>` : ""}
+        <button class="linkbtn" id="s_manage">Manage</button>
       </div>
       ${synced ? `<div class="small muted mono" style="margin-top:8px">${esc(host)}</div>` : ""}
       <div id="syncForm" style="${synced ? "display:none;" : ""}margin-top:13px">
-        <div class="small muted" style="margin-bottom:12px">Paste your project's URL and publishable key to sync this device. Run <code>supabase/schema.sql</code> (and <code>policies.sql</code>) first. See <code>README.md</code>.</div>
-        <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="https://xxxx.supabase.co" value="${esc(cfg.supabase_url || "")}"></div>
+        <div class="small muted" style="margin-bottom:12px">This device auto-connects to your Supabase. Override the URL/key here, or disconnect to use local data only on this device.</div>
+        <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="${esc(DEFAULT_SUPABASE_URL)}" value="${esc(cfg.supabase_url || "")}"></div>
         <div class="field"><label>Supabase publishable key</label><input type="text" id="s_skey" placeholder="sb_publishable_…" value="${esc(cfg.supabase_key || "")}"></div>
         <div class="btn-row">
           <button class="btn btn-sm" id="s_synsave">${synced ? "Reconnect" : "Connect"}</button>
-          ${cfg.supabase_url ? `<button class="btn btn-danger btn-sm" id="s_syndrop">Disconnect</button>` : ""}
+          <button class="btn btn-danger btn-sm" id="s_syndrop">${synced ? "Disconnect" : "Stay local"}</button>
         </div>
       </div>
     </div>`);
     app.appendChild(syncCard);
-    if ($("#s_manage")) $("#s_manage").addEventListener("click", () => {
+    $("#s_manage").addEventListener("click", () => {
       const f = $("#syncForm"); f.style.display = f.style.display === "none" ? "block" : "none";
     });
     $("#s_synsave").addEventListener("click", async () => {
-      const url = $("#s_surl").value.trim(), key = $("#s_skey").value.trim();
-      if (!url || !key) { toast("Enter URL and key"); return; }
+      const url = ($("#s_surl").value.trim() || DEFAULT_SUPABASE_URL), key = ($("#s_skey").value.trim() || DEFAULT_SUPABASE_KEY);
       const btn = $("#s_synsave"); btn.textContent = "Connecting…";
       try {
         await initSupabase(url, key); // verifies the connection before saving
-        Config.set("supabase_url", url); Config.set("supabase_key", key);
+        Config.set("local_only", "");
+        Config.set("supabase_url", $("#s_surl").value.trim()); Config.set("supabase_key", $("#s_skey").value.trim());
         toast("Connected ✓ — reloading");
         setTimeout(() => location.reload(), 700);
       } catch (e) {
         console.warn(e); btn.textContent = "Connect"; toast("Couldn't connect — check URL/key");
       }
     });
-    if ($("#s_syndrop")) $("#s_syndrop").addEventListener("click", () => {
-      Config.set("supabase_url", ""); Config.set("supabase_key", "");
-      toast("Disconnected — reloading"); setTimeout(() => location.reload(), 600);
+    $("#s_syndrop").addEventListener("click", () => {
+      Config.set("local_only", true); Config.set("supabase_url", ""); Config.set("supabase_key", "");
+      toast("Using local data — reloading"); setTimeout(() => location.reload(), 600);
     });
 
     // Data export
@@ -575,11 +581,14 @@
   }
 
   async function init() {
-    // Choose backend: Supabase if configured & reachable, otherwise local.
+    // Choose backend: Supabase (own config or built-in default) unless the user
+    // explicitly switched this device to local-only, otherwise local.
     const cfg = Config.all();
-    if (cfg.supabase_url && cfg.supabase_key) {
+    const url = cfg.supabase_url || DEFAULT_SUPABASE_URL;
+    const key = cfg.supabase_key || DEFAULT_SUPABASE_KEY;
+    if (!cfg.local_only && url && key) {
       try {
-        const store = await initSupabase(cfg.supabase_url, cfg.supabase_key);
+        const store = await initSupabase(url, key);
         setBackend(store);
       } catch (e) {
         console.warn("Supabase unreachable — using local data", e);

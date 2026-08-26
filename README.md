@@ -49,7 +49,9 @@ Every `git push` auto-redeploys.
 
 ## Supabase sync (built and working)
 
-The `supabase.js` adapter mirrors the `store.js` interface; the app switches to it automatically when a URL + key are saved in Settings, and falls back to local data if the network is down.
+The `supabase.js` adapter mirrors the `store.js` interface. The app **auto-connects** to the built-in project (`DEFAULT_SUPABASE_URL` / `DEFAULT_SUPABASE_KEY` in `app.js`), so every device syncs with zero setup; it falls back to local data if the network is down, and Settings → Cross-device sync → **Manage** lets a device override the URL/key or **Disconnect** to stay local.
+
+> **Security note:** the built-in publishable key ships in the public app bundle (and this repo). Anyone who knows the app's web URL can therefore read/write the data — protection is the obscure URL + the passcode. Fine for a personal budget; for real access control, remove the defaults (back to per-device keys) or move to Supabase Auth.
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. SQL Editor → run `supabase/schema.sql` (creates tables, seeds categories/budgets/FX, and adds the access policy).
