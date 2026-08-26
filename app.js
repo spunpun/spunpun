@@ -64,7 +64,7 @@
       <div class="small muted" style="margin-left:2px">${greet}</div></div>`));
 
     // 1) Quick-entry box — parses, then hands off to the Confirm tab
-    const quick = el(`<div class="card"><h3>➕ Add expense</h3>
+    const quick = el(`<div class="card"><h3>Add expense</h3>
       <div class="parse-box">
         <textarea id="sentence" placeholder="e.g. 5 aud coffee today"></textarea>
         <button class="btn parse-btn" id="parseBtn">Next</button>
@@ -97,17 +97,17 @@
     const spentPct = pctOf(totalSpent, totalBudget);
     const leftPct = spentPct == null ? null : 100 - spentPct;
 
-    app.appendChild(el(`<div style="display:flex;justify-content:space-between;align-items:center;margin:4px 0 10px">
-      <h2 class="screen-title" style="margin:0;font-size:18px">This month</h2>
-      <select id="monthSel" style="width:auto">${monthOptions(state.month)}</select></div>`));
-
     // color by health of spend: green (comfortable) → blue (close) → red (over)
-    const spentColor = spentPct == null ? "" : spentPct > 100 ? "c-red" : spentPct > 75 ? "c-blue" : "c-green";
     const leftColor = leftPct == null ? "" : leftPct < 0 ? "c-red" : leftPct < 25 ? "c-blue" : "c-green";
-    app.appendChild(el(`<div class="dash-summary">
-      <div class="stat"><div class="n ${spentColor}">${fmt0(totalSpent)}</div><div class="l">Spent${spentPct != null ? " · " + spentPct + "%" : ""}</div></div>
-      <div class="stat"><div class="n">${fmt0(totalBudget)}</div><div class="l">Budget</div></div>
-      <div class="stat"><div class="n ${leftColor}">${fmt0(remaining)}</div><div class="l">${remaining < 0 ? "Over · " + Math.abs(leftPct) + "%" : "Left" + (leftPct != null ? " · " + leftPct + "%" : "")}</div></div>
+    const meterW = totalBudget ? Math.min(100, (totalSpent / totalBudget) * 100) : 0;
+    const meterCls = spentPct == null ? "" : spentPct > 100 ? "over" : spentPct >= 75 ? "near" : "";
+    app.appendChild(el(`<div class="card statement">
+      <div class="stmt-top"><span class="eyebrow">This month</span>
+        <select id="monthSel">${monthOptions(state.month)}</select></div>
+      <div class="big-num ${leftColor}">${fmt0(remaining)}</div>
+      <div class="stmt-sub">${remaining < 0 ? "over budget of" : "left of"} <b class="mono">${fmt0(totalBudget)}</b></div>
+      <div class="meter"><div class="meter-fill ${meterCls}" style="width:${meterW}%"></div></div>
+      <div class="stmt-foot"><span>Spent <b class="mono">${fmt0(totalSpent)}</b></span><span class="mono">${spentPct != null ? spentPct + "% used" : "no budget set"}</span></div>
     </div>`));
 
     // rows: all categories that have a budget or spend this month
@@ -119,7 +119,7 @@
     if (!rows.length) card.appendChild(el(`<div class="empty">No spending or budgets for this month yet.</div>`));
     rows.forEach((r) => {
       const p = r.budget ? Math.min(100, (r.spent / r.budget) * 100) : (r.spent ? 100 : 0);
-      const cls = !r.budget ? "" : r.spent > r.budget ? "over" : r.spent / r.budget >= 0.85 ? "warn" : "";
+      const cls = !r.budget ? "" : r.spent > r.budget ? "over" : r.spent / r.budget >= 0.75 ? "near" : "";
       const cp = pctOf(r.spent, r.budget);
       const right = r.budget
         ? `<b>${cp}%</b> · ${fmt0(r.spent)} / ${fmt0(r.budget)}`
