@@ -79,30 +79,7 @@
 
   // ================= DASHBOARD (home) =================
   routes.dashboard = async function () {
-    const greet = new Date().toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" });
-    app.appendChild(el(`<div style="margin-bottom:14px">
-      <h1 class="screen-title" style="margin:0 2px 2px">Budget</h1>
-      <div class="small muted" style="margin-left:2px">${greet}</div></div>`));
-
-    // 1) Quick-entry box — parses, then hands off to the Confirm tab
-    const quick = el(`<div class="card"><h3>Add expense</h3>
-      <div class="parse-box">
-        <textarea id="sentence" placeholder="e.g. 5 aud coffee today"></textarea>
-        <button class="btn parse-btn" id="parseBtn">Next</button>
-      </div>
-      <div class="small muted" style="margin-top:6px">Type or paste — separate several with <b>“and”</b>, a comma, or new lines. Review &amp; confirm next. · <a href="#entry" id="manualLink">Enter manually →</a></div>
-    </div>`);
-    app.appendChild(quick);
-    function goParse() {
-      const lines = splitExpenses($("#sentence").value);
-      if (!lines.length) { $("#sentence").focus(); return; }
-      pendingEntries = lines.map((line) => parsedToEntry(parseSentence(line, categories, todayISO())));
-      location.hash = "#entry";
-    }
-    $("#parseBtn").addEventListener("click", goParse);
-    $("#manualLink").addEventListener("click", () => { pendingEntries = []; });
-
-    // 2) This month's dashboard
+    // ---- data ----
     const txns = await DB.getTransactions();
     const budgets = await effectiveBudgets(state.month);
     const monthTxns = txns.filter((t) => t.date.slice(0, 7) === state.month);
@@ -118,35 +95,76 @@
     const spentPct = pctOf(totalSpent, totalBudget);
     const leftPct = spentPct == null ? null : 100 - spentPct;
 
-    // color by health of spend: green (comfortable) → blue (close) → red (over)
-    const leftColor = leftPct == null ? "" : leftPct < 0 ? "c-red" : leftPct < 25 ? "c-blue" : "c-green";
-    const meterW = totalBudget ? Math.min(100, (totalSpent / totalBudget) * 100) : 0;
-    const meterCls = spentPct == null ? "" : spentPct > 100 ? "over" : spentPct >= 75 ? "near" : "";
-    app.appendChild(el(`<div class="card statement">
-      <div class="stmt-top"><span class="eyebrow">This month</span>
-        <select id="monthSel">${monthOptions(state.month)}</select></div>
-      <div class="big-num ${leftColor}">${fmt0(remaining)}</div>
-      <div class="stmt-sub">${remaining < 0 ? "over budget of" : "left of"} <b class="mono">${fmt0(totalBudget)}</b></div>
-      <div class="meter"><div class="meter-fill ${meterCls}" style="width:${meterW}%"></div></div>
-      <div class="stmt-foot"><span>Spent <b class="mono">${fmt0(totalSpent)}</b></span><span class="mono">${spentPct != null ? spentPct + "% used" : "no budget set"}</span></div>
+    // ---- sun: height + warmth encode remaining budget (no red bar) ----
+    const GOLD = "radial-gradient(circle at 50% 36%,#ffd870,#f4c14b 46%,#cf9a34 70%,#a5701f 100%)";
+    const AMBER = "linear-gradient(180deg,#efb84a 0 49%,#b9822b 51% 100%)";
+    const SET = "linear-gradient(180deg,#b8492c 0 49%,#7c2f1c 51% 100%)";
+    const lp = leftPct == null ? 100 : Math.max(-15, Math.min(100, leftPct));
+    const over = lp < 0, low = lp >= 0 && lp < 25;
+    const sunBottom = over ? 24 : Math.round(46 + (Math.max(0, lp) / 100) * 86);
+    const sunGrad = over ? SET : low ? AMBER : GOLD;
+    const sunGlow = over ? "0 6px 40px 6px rgba(224,71,43,.28)"
+      : low ? "0 0 42px 8px rgba(217,154,50,.30)"
+      : "0 0 60px 14px rgba(244,193,75,.30), 0 0 22px 5px rgba(244,193,75,.40)";
+    const numCol = over ? "var(--vermilion)" : low ? "var(--amber)" : "var(--gold)";
+    const bigVal = fmt0(Math.abs(remaining));
+    const subHtml = totalBudget == 0 ? "no budget set for this month"
+      : over ? `over budget · <b>${spentPct}% spent</b>`
+      : `left · <b>${spentPct}% spent</b>`;
+
+    app.appendChild(el(`<div class="sun-head">
+      <span class="eyebrow">${esc(monthLabel(state.month))}</span>
+      <select id="monthSel">${monthOptions(state.month)}</select></div>`));
+
+    app.appendChild(el(`<div class="sky">
+      <svg class="arc" viewBox="0 0 358 244" fill="none" preserveAspectRatio="xMidYMid slice"><path d="M 18 214 Q 179 30 340 214" stroke="rgba(241,234,218,0.13)" stroke-width="1.4" stroke-dasharray="2 9" stroke-linecap="round"/></svg>
+      <div class="horizon-glow"></div>
+      <div class="sun" style="bottom:${sunBottom}px;background:${sunGrad};box-shadow:${sunGlow}"></div>
+      <svg class="waves" viewBox="0 0 358 74" fill="none" preserveAspectRatio="none">
+        <path d="M0 20 Q 45 6 90 20 T 180 20 T 270 20 T 360 20" stroke="rgba(241,234,218,0.50)" stroke-width="1.4"/>
+        <path d="M0 36 Q 45 22 90 36 T 180 36 T 270 36 T 360 36" stroke="rgba(241,234,218,0.32)" stroke-width="1.2"/>
+        <path d="M0 52 Q 45 38 90 52 T 180 52 T 270 52 T 360 52" stroke="rgba(241,234,218,0.20)" stroke-width="1.1"/>
+        <path d="M0 68 Q 45 54 90 68 T 180 68 T 270 68 T 360 68" stroke="rgba(241,234,218,0.12)" stroke-width="1"/></svg>
     </div>`));
 
-    // rows: all categories that have a budget or spend this month
+    app.appendChild(el(`<div class="hero-figs">
+      <div class="big-num" style="color:${numCol}">${bigVal}</div>
+      <div class="hero-sub">${subHtml}</div></div>`));
+
+    // ---- primary action: type what you spent ----
+    const quick = el(`<div class="card" style="margin-top:20px">
+      <div class="parse-box">
+        <textarea id="sentence" placeholder="What did you spend?  e.g. 12 lunch"></textarea>
+        <button class="btn parse-btn" id="parseBtn">Add<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="small muted" style="margin-top:8px">Log it as you go — several at once with <b>“and”</b> or commas. <a href="#entry" id="manualLink">Enter manually →</a></div>
+    </div>`);
+    app.appendChild(quick);
+    function goParse() {
+      const lines = splitExpenses($("#sentence").value);
+      if (!lines.length) { $("#sentence").focus(); return; }
+      pendingEntries = lines.map((line) => parsedToEntry(parseSentence(line, categories, todayISO())));
+      location.hash = "#entry";
+    }
+    $("#parseBtn").addEventListener("click", goParse);
+    $("#manualLink").addEventListener("click", () => { pendingEntries = []; });
+
+    // ---- by category, each with its own sun ----
     const ids = new Set([...Object.keys(budgetByCat), ...Object.keys(spentByCat)]);
     const rows = [...ids].map((id) => ({ id, name: catName(id), spent: spentByCat[id] || 0, budget: budgetByCat[id] || 0 }))
       .sort((a, b) => (b.budget || b.spent) - (a.budget || a.spent));
 
     const card = el(`<div class="card"><h3>By category · ${esc(monthLabel(state.month))}</h3></div>`);
-    if (!rows.length) card.appendChild(el(`<div class="empty">No spending or budgets for this month yet.</div>`));
+    if (!rows.length) card.appendChild(el(`<div class="empty">No spending or budgets yet — log one above to start.</div>`));
     rows.forEach((r) => {
-      const p = r.budget ? Math.min(100, (r.spent / r.budget) * 100) : (r.spent ? 100 : 0);
-      const cls = !r.budget ? "" : r.spent > r.budget ? "over" : r.spent / r.budget >= 0.75 ? "near" : "";
+      const ratio = r.budget ? r.spent / r.budget : 0;
+      const p = r.budget ? Math.min(100, ratio * 100) : (r.spent ? 100 : 0);
+      const cls = !r.budget ? "" : ratio > 1 ? "over" : ratio >= 0.75 ? "near" : "";
+      const csun = !r.budget ? GOLD : ratio > 1 ? SET : ratio >= 0.75 ? AMBER : GOLD;
       const cp = pctOf(r.spent, r.budget);
-      const right = r.budget
-        ? `<b>${cp}%</b> · ${fmt0(r.spent)} / ${fmt0(r.budget)}`
-        : `<b>${fmt0(r.spent)}</b> · no budget`;
+      const right = r.budget ? `<b>${cp}%</b> · ${fmt0(r.spent)} / ${fmt0(r.budget)}` : `<b>${fmt0(r.spent)}</b> · no budget`;
       card.appendChild(el(`<div class="bar-item">
-        <div class="bar-head"><span class="cat">${esc(r.name)}</span><span class="amt">${right}</span></div>
+        <div class="bar-head"><span class="msun" style="background:${csun}"></span><span class="cat">${esc(r.name)}</span><span class="amt">${right}</span></div>
         <div class="track"><div class="fill ${cls}" style="width:${p}%"></div></div></div>`));
     });
     app.appendChild(card);
