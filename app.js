@@ -151,7 +151,7 @@
           <textarea id="sentence" rows="1" placeholder="What did you spend?  e.g. 12 lunch"></textarea>
           <button class="entry-go" id="parseBtn" aria-label="Add expense"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
-        <div class="entry-hint">Log it as you go — several with <b>“and”</b> or commas · <a href="#entry" id="manualLink">manual</a></div>
+        <div class="entry-hint">Log as you go · several with <b>“and”</b> or commas · <a href="#entry" id="manualLink">manual</a></div>
       </div>
     </div>`);
     app.appendChild(top);
@@ -172,7 +172,7 @@
       .sort((a, b) => (b.budget || b.spent) - (a.budget || a.spent));
 
     const card = el(`<div class="card"><h3>By category · ${esc(monthLabel(state.month))}</h3></div>`);
-    if (!rows.length) card.appendChild(el(`<div class="empty">No spending or budgets yet — log one above to start.</div>`));
+    if (!rows.length) card.appendChild(el(`<div class="empty">No spending or budgets yet. Log one above to start.</div>`));
     rows.forEach((r) => {
       const ratio = r.budget ? r.spent / r.budget : 0;
       const p = r.budget ? Math.min(100, ratio * 100) : (r.spent ? 100 : 0);
@@ -245,7 +245,7 @@
           </div>
           <div class="aud small muted" style="margin:-4px 2px 10px"></div>
           <div class="field"><label>Category</label><select class="f_cat">${catOptions(e.category_id)}</select>
-            <div class="flag catflag" style="margin-top:6px;${e.matched ? "display:none" : ""}">Couldn't detect a category — please pick one</div></div>
+            <div class="flag catflag" style="margin-top:6px;${e.matched ? "display:none" : ""}">Couldn't detect a category, please pick one</div></div>
           <div class="row">
             <div class="col field"><label>Date</label><input class="f_date" type="date" value="${e.date}"></div>
             <div class="col field"><label>Payment</label><select class="f_pay">${selOptions(["Card", "Transfer", "Cash"], e.payment)}</select></div>
@@ -416,7 +416,7 @@
       categories.forEach((c) => {
         const own = emap[c.id];
         const inh = own == null ? effMap[c.id] : null; // inherited value shown as placeholder
-        const ph = inh ? `${Math.round(inh.amount_aud)} · from ${monthLabel(inh.from)}` : "—";
+        const ph = inh ? `${Math.round(inh.amount_aud)} · from ${monthLabel(inh.from)}` : "not set";
         const row = el(`<div class="brow">
           <div class="bcat">${esc(c.name)}${inh ? ` <span class="binherit">inherited</span>` : ""}</div>
           <div class="bin"><input type="number" step="0.01" inputmode="decimal" placeholder="${esc(ph)}" data-cat="${c.id}" value="${own != null ? own : ""}"></div>
@@ -521,15 +521,15 @@
         await initSupabase(url, key); // verifies the connection before saving
         Config.set("local_only", "");
         Config.set("supabase_url", $("#s_surl").value.trim()); Config.set("supabase_key", $("#s_skey").value.trim());
-        toast("Connected ✓ — reloading");
+        toast("Connected ✓ · reloading");
         setTimeout(() => location.reload(), 700);
       } catch (e) {
-        console.warn(e); btn.textContent = "Connect"; toast("Couldn't connect — check URL/key");
+        console.warn(e); btn.textContent = "Connect"; toast("Couldn't connect · check URL/key");
       }
     });
     $("#s_syndrop").addEventListener("click", () => {
       Config.set("local_only", true); Config.set("supabase_url", ""); Config.set("supabase_key", "");
-      toast("Using local data — reloading"); setTimeout(() => location.reload(), 600);
+      toast("Using local data · reloading"); setTimeout(() => location.reload(), 600);
     });
 
     // Data export
@@ -563,7 +563,7 @@
     });
     if (!isNew) $("#c_del", body).addEventListener("click", async () => {
       if (c.name === "Other") { toast("Can't delete Other"); return; }
-      await DB.deleteCategory(c.id); categories = await DB.getCategories(); closeModal(); toast("Deleted — txns moved to Other"); route();
+      await DB.deleteCategory(c.id); categories = await DB.getCategories(); closeModal(); toast("Deleted · txns moved to Other"); route();
     });
   }
 
@@ -625,7 +625,7 @@
         setBackend(store);
       } catch (e) {
         console.warn("Supabase unreachable — using local data", e);
-        toast("Offline — using local data");
+        toast("Offline · using local data");
       }
     }
     await seedIfNeeded(); // local: seeds from file; Supabase: no-op if tables already populated

@@ -135,7 +135,7 @@ a { color: var(--gold); text-decoration: none; font-weight: 500; }
 .bar-item:last-child { margin-bottom: 2px; }
 .bar-head { display: flex; align-items: baseline; gap: 9px; margin-bottom: 7px; }
 .bar-head .msun { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; align-self: center; }
-.bar-head .cat { font-weight: 500; font-size: 14.5px; flex: 1; }
+.bar-head .cat { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 16px; flex: 1; }
 .bar-head .amt { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: -0.01em; }
 .bar-head .amt b { color: var(--text); font-weight: 600; }
 .track { height: 5px; background: #241d10; border-radius: 999px; overflow: hidden; }
@@ -173,7 +173,7 @@ a { color: var(--gold); text-decoration: none; font-weight: 500; }
 /* Budget rows */
 .brow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
 .brow:last-child { border-bottom: none; }
-.bcat { font-weight: 500; font-size: 14.5px; display: flex; align-items: center; gap: 8px; }
+.bcat { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 16px; display: flex; align-items: center; gap: 8px; }
 .binherit { font-size: 9.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border); border-radius: 999px; padding: 1px 7px; }
 .bin { width: 148px; flex: 0 0 auto; }
 .bin input { text-align: right; font-variant-numeric: tabular-nums; }
