@@ -47,21 +47,27 @@ Every `git push` auto-redeploys.
 
 > Note: with the localStorage backend, each device keeps its **own** copy of the data. To truly sync phone ↔ laptop, add Supabase (below).
 
-## Add Supabase sync (optional, when you want it)
+## Supabase sync (built and working)
+
+The `supabase.js` adapter mirrors the `store.js` interface; the app switches to it automatically when a URL + key are saved in Settings, and falls back to local data if the network is down.
 
 1. Create a free project at [supabase.com](https://supabase.com).
-2. SQL Editor → paste and run `supabase/schema.sql` (creates tables + seeds categories/budgets/FX).
-3. SQL Editor → paste and run `supabase/migrate_transactions.sql` (imports the 155 transactions).
-4. Project Settings → API → copy the **Project URL** and **anon public key**.
-5. In the app: Settings → Cross-device sync → paste both → Save.
-6. Enable the adapter (a `supabase.js` module that mirrors the `store.js` interface and points `DB` at Supabase). The config fields and schema are already in place for this.
+2. SQL Editor → run `supabase/schema.sql` (creates tables, seeds categories/budgets/FX, and adds the access policy).
+3. SQL Editor → run `supabase/migrate_transactions.sql` (imports the 155 transactions).
+4. Project Settings → API → copy the **Project URL** and the **publishable / `anon` key** (the browser-safe one, e.g. `sb_publishable_…` — **not** the `service_role` secret).
+5. In the app: **Settings → Cross-device sync** → paste both → **Connect**. It verifies the connection, then reloads into synced mode ("● Synced via Supabase").
 
-Until step 6, the app runs happily in local mode.
+**Row-Level Security:** Supabase enables RLS by default, which silently blocks the publishable key from reading or writing (the app connects but shows no data, error `42501`). `schema.sql` now adds a permissive `app full access` policy so the key works. If you set the tables up before that, run `supabase/policies.sql` once to add it.
+
+**Notes**
+- The URL can be the base (`https://xxxx.supabase.co`) or the REST form (`…/rest/v1/`) — the adapter normalizes it.
+- The key is stored per-device (in `localStorage`, never synced), so paste it in Settings on each device (phone + laptop). Don't hard-code it into a public repo — with the permissive policy, anyone with the URL + key can read/write the data.
+- Passcode is also per-device. FX rates and last-used payment live in the synced `settings` table.
 
 ## Features
 
 - **Quick entry** — on the Home page, type or paste into the box and hit **Next**. It parses and hands off to the **Confirm** tab, where you review the filled fields and hit Confirm. Manual entry: the **Add** tab opens a blank row.
-- **Bulk add** — put **one expense per line** in the box (e.g. paste 5 lines Claude gave you). Each line becomes its own editable card on the Confirm tab; **Confirm all** saves them in one go. Remove any row with ✕, or **＋ Add another** for an extra.
+- **Bulk add** — separate several expenses with **“and”**, a **comma**, or **new lines** (e.g. `12 lunch and 6 coffee and 30 didi`, or paste 5 lines Claude gave you). Each becomes its own editable card on the Confirm tab; **Confirm all** saves them in one go. Remove any row with ✕, or **＋ Add another** for an extra. (A separator only splits when the next part has its own amount, so `5 coffee and cake` stays one expense.)
 - **Parser** — amount + currency (defaults AUD), dates (`today`/`yesterday`/weekdays/`aug 20`/`20/8`), category via editable keyword dictionary, notes = leftover words. Unmatched category → `Other`, flagged on the card.
 - **Dashboard** — month selector; **Spent** and **Left** are color-coded by how much of the budget is used: green (comfortable, ≤75%), blue (getting close, 75–100%), red (over). Per-category progress bars carry their % (amber near limit, red over).
 - **History** — filter by month + category, search notes, tap a row to edit/delete.

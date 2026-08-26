@@ -102,10 +102,21 @@ insert into settings (key, value) values
   ('last_payment', '"Card"'::jsonb)
 on conflict (key) do nothing;
 
--- Single-user app behind a shared passcode in the client.
--- Simplest: keep RLS disabled and use the anon key (data is obscured by the passcode + unguessable URL).
--- For stronger protection, enable RLS and add policies, or put the app behind Supabase Auth.
-alter table categories   disable row level security;
-alter table transactions disable row level security;
-alter table budgets      disable row level security;
-alter table settings     disable row level security;
+-- Single-user app protected by an unguessable project URL + publishable key + the
+-- app's passcode. Keep RLS on (Supabase best practice) and add a permissive policy
+-- so the publishable/anon key can read and write. For stronger protection, replace
+-- these with Supabase Auth policies.
+alter table categories   enable row level security;
+alter table transactions enable row level security;
+alter table budgets      enable row level security;
+alter table settings     enable row level security;
+
+drop policy if exists "app full access" on categories;
+drop policy if exists "app full access" on transactions;
+drop policy if exists "app full access" on budgets;
+drop policy if exists "app full access" on settings;
+
+create policy "app full access" on categories   for all to anon, authenticated using (true) with check (true);
+create policy "app full access" on transactions for all to anon, authenticated using (true) with check (true);
+create policy "app full access" on budgets      for all to anon, authenticated using (true) with check (true);
+create policy "app full access" on settings     for all to anon, authenticated using (true) with check (true);

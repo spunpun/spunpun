@@ -111,9 +111,23 @@ const LocalStore = {
   async setSetting(key, value) { const d = this._load(); d.settings[key] = value; this._save(); },
 };
 
-// Public facade. Swap in Supabase adapter when configured.
-const DB = LocalStore;
+// Public facade. Backend is chosen at init; Supabase adapter swaps in via setBackend().
+let DB = LocalStore;
+function setBackend(store) { DB = store; }
+
+// Device-local config (never synced): Supabase credentials + passcode live here so
+// the app can decide which backend to use before any data call.
+const Config = {
+  KEY: "budgetapp_config",
+  all() { try { return JSON.parse(localStorage.getItem(this.KEY) || "{}"); } catch (e) { return {}; } },
+  get(k) { return this.all()[k]; },
+  set(k, v) {
+    const c = this.all();
+    if (v === null || v === undefined || v === "") delete c[k]; else c[k] = v;
+    try { localStorage.setItem(this.KEY, JSON.stringify(c)); } catch (e) { /* ignore */ }
+  },
+};
 
 const Helpers = { uid, monthOf, nowISO };
 
-if (typeof module !== "undefined" && module.exports) module.exports = { LocalStore, Helpers };
+if (typeof module !== "undefined" && module.exports) module.exports = { LocalStore, Helpers, Config };

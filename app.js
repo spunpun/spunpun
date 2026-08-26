@@ -58,7 +58,10 @@
 
   // ================= DASHBOARD (home) =================
   routes.dashboard = async function () {
-    app.appendChild(el(`<h1 class="screen-title" style="margin-bottom:12px">Budget</h1>`));
+    const greet = new Date().toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" });
+    app.appendChild(el(`<div style="margin-bottom:14px">
+      <h1 class="screen-title" style="margin:0 2px 2px">Budget</h1>
+      <div class="small muted" style="margin-left:2px">${greet}</div></div>`));
 
     // 1) Quick-entry box — parses, then hands off to the Confirm tab
     const quick = el(`<div class="card"><h3>➕ Add expense</h3>
@@ -66,11 +69,11 @@
         <textarea id="sentence" placeholder="e.g. 5 aud coffee today"></textarea>
         <button class="btn parse-btn" id="parseBtn">Next</button>
       </div>
-      <div class="small muted" style="margin-top:6px">Type or paste — <b>one expense per line</b> to add several at once. Review &amp; confirm on the next screen. · <a href="#entry" id="manualLink">Enter manually →</a></div>
+      <div class="small muted" style="margin-top:6px">Type or paste — separate several with <b>“and”</b>, a comma, or new lines. Review &amp; confirm next. · <a href="#entry" id="manualLink">Enter manually →</a></div>
     </div>`);
     app.appendChild(quick);
     function goParse() {
-      const lines = $("#sentence").value.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+      const lines = splitExpenses($("#sentence").value);
       if (!lines.length) { $("#sentence").focus(); return; }
       pendingEntries = lines.map((line) => parsedToEntry(parseSentence(line, categories, todayISO())));
       location.hash = "#entry";
@@ -391,26 +394,45 @@
     $("#s_pcsave").addEventListener("click", async () => {
       const v = $("#s_pc").value.trim();
       if (!/^\d{4}$/.test(v)) { toast("Enter 4 digits"); return; }
-      settings.passcode = v; await DB.setSetting("passcode", v); $("#s_pc").value = ""; toast("Passcode set ✓"); route();
+      settings.passcode = v; Config.set("passcode", v); $("#s_pc").value = ""; toast("Passcode set ✓"); route();
     });
     if ($("#s_pcclear")) $("#s_pcclear").addEventListener("click", async () => {
-      settings.passcode = ""; await DB.setSetting("passcode", ""); toast("Passcode removed"); route();
+      settings.passcode = ""; Config.set("passcode", ""); toast("Passcode removed"); route();
     });
 
-    // Sync (Supabase) — informational + config
-    const syncCard = el(`<div class="card"><h3>Cross-device sync (optional)</h3>
-      <div class="small muted" style="margin-bottom:10px">Right now data is stored on this device. To sync phone + laptop, create a free Supabase project, run <code>supabase/schema.sql</code>, and paste the keys here. See <code>README.md</code>.</div>
-      <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="https://xxxx.supabase.co" value="${esc(settings.supabase_url||"")}"></div>
-      <div class="field"><label>Supabase anon key</label><input type="text" id="s_skey" placeholder="eyJ…" value="${esc(settings.supabase_key||"")}"></div>
-      <button class="btn btn-ghost btn-sm" id="s_synsave">Save sync config</button>
-      <div class="small muted" style="margin-top:8px">Saved for when the Supabase adapter is enabled. Local mode keeps working meanwhile.</div>
+    // Sync (Supabase)
+    const synced = !!(DB && DB._supabase);
+    const cfg = Config.all();
+    const statusPill = synced
+      ? `<span class="pill">● Synced via Supabase</span>`
+      : `<span class="flag">● Local only (this device)</span>`;
+    const syncCard = el(`<div class="card"><h3>Cross-device sync</h3>
+      <div style="margin-bottom:10px">${statusPill}</div>
+      <div class="small muted" style="margin-bottom:12px">Paste your project's URL and anon public key to sync phone + laptop. Run <code>supabase/schema.sql</code> (and <code>migrate_transactions.sql</code>) first. See <code>README.md</code>.</div>
+      <div class="field"><label>Supabase URL</label><input type="url" id="s_surl" placeholder="https://xxxx.supabase.co" value="${esc(cfg.supabase_url || "")}"></div>
+      <div class="field"><label>Supabase anon key</label><input type="text" id="s_skey" placeholder="eyJhbGci…" value="${esc(cfg.supabase_key || "")}"></div>
+      <div class="btn-row">
+        <button class="btn btn-sm" id="s_synsave">${synced ? "Reconnect" : "Connect"}</button>
+        ${cfg.supabase_url ? `<button class="btn btn-danger btn-sm" id="s_syndrop">Disconnect</button>` : ""}
+      </div>
     </div>`);
     app.appendChild(syncCard);
     $("#s_synsave").addEventListener("click", async () => {
-      settings.supabase_url = $("#s_surl").value.trim(); settings.supabase_key = $("#s_skey").value.trim();
-      await DB.setSetting("supabase_url", settings.supabase_url);
-      await DB.setSetting("supabase_key", settings.supabase_key);
-      toast("Sync config saved");
+      const url = $("#s_surl").value.trim(), key = $("#s_skey").value.trim();
+      if (!url || !key) { toast("Enter URL and key"); return; }
+      const btn = $("#s_synsave"); btn.textContent = "Connecting…";
+      try {
+        await initSupabase(url, key); // verifies the connection before saving
+        Config.set("supabase_url", url); Config.set("supabase_key", key);
+        toast("Connected ✓ — reloading");
+        setTimeout(() => location.reload(), 700);
+      } catch (e) {
+        console.warn(e); btn.textContent = "Connect"; toast("Couldn't connect — check URL/key");
+      }
+    });
+    if ($("#s_syndrop")) $("#s_syndrop").addEventListener("click", () => {
+      Config.set("supabase_url", ""); Config.set("supabase_key", "");
+      toast("Disconnected — reloading"); setTimeout(() => location.reload(), 600);
     });
 
     // Data export
@@ -495,9 +517,21 @@
   }
 
   async function init() {
-    await seedIfNeeded();
+    // Choose backend: Supabase if configured & reachable, otherwise local.
+    const cfg = Config.all();
+    if (cfg.supabase_url && cfg.supabase_key) {
+      try {
+        const store = await initSupabase(cfg.supabase_url, cfg.supabase_key);
+        setBackend(store);
+      } catch (e) {
+        console.warn("Supabase unreachable — using local data", e);
+        toast("Offline — using local data");
+      }
+    }
+    await seedIfNeeded(); // local: seeds from file; Supabase: no-op if tables already populated
     categories = await DB.getCategories();
     settings = await DB.getSettings();
+    settings.passcode = cfg.passcode || ""; // passcode is device-local
     // Opening the Add tab from the nav always starts a fresh blank row
     const navAdd = document.getElementById("navAdd");
     if (navAdd) navAdd.addEventListener("click", () => { pendingEntries = []; });

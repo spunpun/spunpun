@@ -1,7 +1,7 @@
 // Offline-first service worker. Cache app shell; network-first for the seed data.
-const CACHE = "budget-v1";
+const CACHE = "budget-v2";
 const SHELL = [
-  "./", "./index.html", "./styles.css", "./app.js", "./store.js", "./parser.js",
+  "./", "./index.html", "./styles.css", "./app.js", "./store.js", "./parser.js", "./supabase.js",
   "./manifest.webmanifest", "./seed.data.json",
   "./icons/icon-192.png", "./icons/icon-512.png",
 ];

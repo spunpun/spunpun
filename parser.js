@@ -150,6 +150,22 @@ function parseSentence(text, categories, todayISO) {
   };
 }
 
+// Split a blob into separate expenses. Boundaries: newline, comma, semicolon,
+// "and", "&", "plus". A boundary only starts a NEW expense if the segment carries
+// its own amount — so "5 coffee and cake" stays one, "5 coffee and 10 lunch" splits.
+function splitExpenses(text) {
+  const parts = String(text || "").split(/[\n,;&]|\band\b|\bplus\b/gi).map((s) => s.trim()).filter(Boolean);
+  const groups = [];
+  for (const p of parts) {
+    const hasNum = /\d/.test(p);
+    const last = groups[groups.length - 1];
+    if (!groups.length) groups.push(p);
+    else if (hasNum && /\d/.test(last)) groups.push(p);   // both have amounts -> separate expenses
+    else groups[groups.length - 1] = last + " " + p;      // continuation of the previous one
+  }
+  return groups;
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { parseSentence, extractAmount, extractDate, extractCategory };
+  module.exports = { parseSentence, extractAmount, extractDate, extractCategory, splitExpenses };
 }

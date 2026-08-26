@@ -56,5 +56,14 @@ eq([r.categoryName], ["Transport"], "multi-word keyword 'max cap'");
 r = parseSentence("6.5 matcha with sid", CATS, TODAY);
 eq([r.amount, r.categoryName, r.notes], [6.5, "Dining", "matcha with sid"], "notes keep remaining words");
 
+// --- splitExpenses ---
+eq(splitExpenses("5 coffee and 10 lunch"), ["5 coffee", "10 lunch"], "and splits two amounts");
+eq(splitExpenses("5 coffee and cake"), ["5 coffee cake"], "and keeps one when no 2nd amount");
+eq(splitExpenses("woolies 20, didi 15, coffee 5"), ["woolies 20", "didi 15", "coffee 5"], "commas split three");
+eq(splitExpenses("5 coffee\n10 lunch"), ["5 coffee", "10 lunch"], "newline splits");
+eq(splitExpenses("coffee and lunch 20"), ["coffee lunch 20"], "leading no-amount merges forward");
+eq(splitExpenses("15 climbing and 8 matcha and snack"), ["15 climbing", "8 matcha snack"], "mixed and-chain");
+eq(splitExpenses("   "), [], "blank -> none");
+
 print("\n" + pass + " passed, " + fail + " failed");
 if (fail > 0) throw new Error("tests failed");
