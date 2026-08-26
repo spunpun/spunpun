@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="theme-color" content="#2f6f4f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Budget" />
+  <title>Budget</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="lock"></div>
+  <div class="app" id="app"></div>
+
+  <nav class="nav" id="nav">
+    <a href="#dashboard" data-route="dashboard"><span class="ic">🏠</span>Home</a>
+    <a href="#entry" data-route="entry" id="navAdd"><span class="ic">➕</span>Add</a>
+    <a href="#transactions" data-route="transactions"><span class="ic">📋</span>History</a>
+    <a href="#budgets" data-route="budgets"><span class="ic">🎯</span>Budgets</a>
+    <a href="#settings" data-route="settings"><span class="ic">⚙️</span>Settings</a>
+  </nav>
+
+  <div id="modal-root"></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="parser.js"></script>
+  <script src="store.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

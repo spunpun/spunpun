@@ -1,0 +1,1785 @@
+{
+ "categories": [
+  {
+   "name": "Rent",
+   "keywords": [
+    "rent",
+    "real estate",
+    "sydney side",
+    "landlord",
+    "lease"
+   ]
+  },
+  {
+   "name": "Groceries",
+   "keywords": [
+    "woolworths",
+    "woolies",
+    "aldi",
+    "coles",
+    "costco",
+    "foodworks",
+    "iga",
+    "groceries",
+    "grocery",
+    "chargrill",
+    "too good to go",
+    "supermarket",
+    "market"
+   ]
+  },
+  {
+   "name": "Dining",
+   "keywords": [
+    "coffee",
+    "matcha",
+    "lunch",
+    "breakfast",
+    "brunch",
+    "dinner",
+    "kebab",
+    "rara",
+    "breadfern",
+    "cafe",
+    "restaurant",
+    "thai food",
+    "homestead",
+    "food",
+    "snack",
+    "bakery"
+   ]
+  },
+  {
+   "name": "Transport",
+   "keywords": [
+    "didi",
+    "uber",
+    "taxi",
+    "flight",
+    "opal",
+    "train",
+    "bus",
+    "max cap",
+    "transport",
+    "fuel",
+    "petrol",
+    "toll",
+    "grab"
+   ]
+  },
+  {
+   "name": "Utilities",
+   "keywords": [
+    "laundromat",
+    "amaysim",
+    "nbn",
+    "internet",
+    "electricity",
+    "water bill",
+    "gas bill",
+    "phone bill",
+    "utility",
+    "utilities"
+   ]
+  },
+  {
+   "name": "Workout",
+   "keywords": [
+    "climbing",
+    "bouldering",
+    "gym",
+    "playground",
+    "yoga",
+    "pilates",
+    "workout",
+    "fitness",
+    "one playground"
+   ]
+  },
+  {
+   "name": "Social/networking",
+   "keywords": [
+    "beer",
+    "movies",
+    "theater",
+    "theatre",
+    "catch up",
+    "drinks",
+    "rooftop",
+    "bar",
+    "networking",
+    "social",
+    "party",
+    "concert"
+   ]
+  },
+  {
+   "name": "Subscriptions",
+   "keywords": [
+    "app store",
+    "amazon prime",
+    "netflix",
+    "spotify",
+    "subscription",
+    "membership",
+    "icloud",
+    "youtube premium"
+   ]
+  },
+  {
+   "name": "Travel",
+   "keywords": [
+    "camping",
+    "overland",
+    "national park",
+    "hotel",
+    "airbnb",
+    "travel",
+    "trip",
+    "holiday",
+    "hostel"
+   ]
+  },
+  {
+   "name": "Health",
+   "keywords": [
+    "chemist",
+    "chemist warehouse",
+    "meds",
+    "medicine",
+    "protein",
+    "acupuncture",
+    "pharmacy",
+    "doctor",
+    "dentist",
+    "clinic",
+    "supplement"
+   ]
+  },
+  {
+   "name": "Shopping",
+   "keywords": [
+    "amazon",
+    "temu",
+    "daiso",
+    "bigw",
+    "big w",
+    "kmart",
+    "ikea",
+    "target",
+    "officeworks",
+    "projector",
+    "lskd",
+    "gymshark",
+    "gym shark",
+    "uniqlo",
+    "cotton on",
+    "muji",
+    "shoe rack",
+    "clothes",
+    "shopping",
+    "shopee",
+    "lazada",
+    "asos",
+    "the iconic"
+   ]
+  },
+  {
+   "name": "Other",
+   "keywords": []
+  }
+ ],
+ "budgets": [
+  {
+   "category": "Rent",
+   "month": "2026-06",
+   "amount": 2800.0
+  },
+  {
+   "category": "Rent",
+   "month": "2026-07",
+   "amount": 2800.0
+  },
+  {
+   "category": "Rent",
+   "month": "2026-08",
+   "amount": 2800.0
+  },
+  {
+   "category": "Groceries",
+   "month": "2026-06",
+   "amount": 550.0
+  },
+  {
+   "category": "Groceries",
+   "month": "2026-07",
+   "amount": 550.0
+  },
+  {
+   "category": "Groceries",
+   "month": "2026-08",
+   "amount": 550.0
+  },
+  {
+   "category": "Dining",
+   "month": "2026-06",
+   "amount": 300.0
+  },
+  {
+   "category": "Dining",
+   "month": "2026-07",
+   "amount": 300.0
+  },
+  {
+   "category": "Dining",
+   "month": "2026-08",
+   "amount": 300.0
+  },
+  {
+   "category": "Transport",
+   "month": "2026-06",
+   "amount": 350.0
+  },
+  {
+   "category": "Transport",
+   "month": "2026-07",
+   "amount": 350.0
+  },
+  {
+   "category": "Transport",
+   "month": "2026-08",
+   "amount": 350.0
+  },
+  {
+   "category": "Utilities",
+   "month": "2026-06",
+   "amount": 250.0
+  },
+  {
+   "category": "Utilities",
+   "month": "2026-07",
+   "amount": 250.0
+  },
+  {
+   "category": "Utilities",
+   "month": "2026-08",
+   "amount": 250.0
+  },
+  {
+   "category": "Workout",
+   "month": "2026-06",
+   "amount": 160.0
+  },
+  {
+   "category": "Workout",
+   "month": "2026-07",
+   "amount": 160.0
+  },
+  {
+   "category": "Workout",
+   "month": "2026-08",
+   "amount": 160.0
+  },
+  {
+   "category": "Social/networking",
+   "month": "2026-06",
+   "amount": 200.0
+  },
+  {
+   "category": "Social/networking",
+   "month": "2026-07",
+   "amount": 200.0
+  },
+  {
+   "category": "Social/networking",
+   "month": "2026-08",
+   "amount": 200.0
+  },
+  {
+   "category": "Subscriptions",
+   "month": "2026-06",
+   "amount": 50.0
+  },
+  {
+   "category": "Subscriptions",
+   "month": "2026-07",
+   "amount": 50.0
+  },
+  {
+   "category": "Subscriptions",
+   "month": "2026-08",
+   "amount": 50.0
+  },
+  {
+   "category": "Travel",
+   "month": "2026-06",
+   "amount": 200.0
+  },
+  {
+   "category": "Travel",
+   "month": "2026-07",
+   "amount": 200.0
+  },
+  {
+   "category": "Travel",
+   "month": "2026-08",
+   "amount": 200.0
+  },
+  {
+   "category": "Health",
+   "month": "2026-06",
+   "amount": 200.0
+  },
+  {
+   "category": "Health",
+   "month": "2026-07",
+   "amount": 200.0
+  },
+  {
+   "category": "Health",
+   "month": "2026-08",
+   "amount": 200.0
+  },
+  {
+   "category": "Shopping",
+   "month": "2026-06",
+   "amount": 150.0
+  },
+  {
+   "category": "Shopping",
+   "month": "2026-07",
+   "amount": 150.0
+  },
+  {
+   "category": "Shopping",
+   "month": "2026-08",
+   "amount": 150.0
+  },
+  {
+   "category": "Other",
+   "month": "2026-06",
+   "amount": 440.0
+  },
+  {
+   "category": "Other",
+   "month": "2026-07",
+   "amount": 440.0
+  },
+  {
+   "category": "Other",
+   "month": "2026-08",
+   "amount": 440.0
+  }
+ ],
+ "settings": [
+  {
+   "key": "fx_thb_aud",
+   "value": 0.04256241
+  },
+  {
+   "key": "fx_usd_aud",
+   "value": 1.39301
+  },
+  {
+   "key": "last_payment",
+   "value": "Card"
+  }
+ ],
+ "transactions": [
+  {
+   "date": "2026-05-21",
+   "category": "Health",
+   "amount": 22.98,
+   "currency": "AUD",
+   "amount_aud": 22.98,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-22",
+   "category": "Groceries",
+   "amount": 39.24,
+   "currency": "AUD",
+   "amount_aud": 39.24,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-23",
+   "category": "Health",
+   "amount": 80.0,
+   "currency": "AUD",
+   "amount_aud": 80.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-23",
+   "category": "Utilities",
+   "amount": 7.0,
+   "currency": "AUD",
+   "amount_aud": 7.0,
+   "notes": "Laundromat",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-24",
+   "category": "Social/networking",
+   "amount": 10.95,
+   "currency": "AUD",
+   "amount_aud": 10.95,
+   "notes": "Matcha",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-24",
+   "category": "Groceries",
+   "amount": 56.75,
+   "currency": "AUD",
+   "amount_aud": 56.75,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-25",
+   "category": "Transport",
+   "amount": 8.0,
+   "currency": "AUD",
+   "amount_aud": 8.0,
+   "notes": "Didi",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-27",
+   "category": "Groceries",
+   "amount": 25.56,
+   "currency": "AUD",
+   "amount_aud": 25.56,
+   "notes": "Chargrill charlie",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-28",
+   "category": "Dining",
+   "amount": 9.5,
+   "currency": "AUD",
+   "amount_aud": 9.5,
+   "notes": "Matcha",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-28",
+   "category": "Social/networking",
+   "amount": 31.0,
+   "currency": "AUD",
+   "amount_aud": 31.0,
+   "notes": "Theater",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-28",
+   "category": "Groceries",
+   "amount": 75.0,
+   "currency": "AUD",
+   "amount_aud": 75.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-28",
+   "category": "Shopping",
+   "amount": 27.0,
+   "currency": "AUD",
+   "amount_aud": 27.0,
+   "notes": "Shoe rack",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-29",
+   "category": "Transport",
+   "amount": 6.75,
+   "currency": "AUD",
+   "amount_aud": 6.75,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-29",
+   "category": "Dining",
+   "amount": 15.0,
+   "currency": "AUD",
+   "amount_aud": 15.0,
+   "notes": "Kebab",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-30",
+   "category": "Social/networking",
+   "amount": 27.0,
+   "currency": "AUD",
+   "amount_aud": 27.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-31",
+   "category": "Dining",
+   "amount": 40.0,
+   "currency": "AUD",
+   "amount_aud": 40.0,
+   "notes": "Rara + Beercade",
+   "payment": ""
+  },
+  {
+   "date": "2026-05-31",
+   "category": "Groceries",
+   "amount": 43.0,
+   "currency": "AUD",
+   "amount_aud": 43.0,
+   "notes": "Aldi",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-01",
+   "category": "Health",
+   "amount": 26.83,
+   "currency": "AUD",
+   "amount_aud": 26.83,
+   "notes": "Med",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-02",
+   "category": "Shopping",
+   "amount": 45.0,
+   "currency": "AUD",
+   "amount_aud": 45.0,
+   "notes": "LSKD",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-02",
+   "category": "Social/networking",
+   "amount": 14.0,
+   "currency": "AUD",
+   "amount_aud": 14.0,
+   "notes": "Sid",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-03",
+   "category": "Groceries",
+   "amount": 10.25,
+   "currency": "AUD",
+   "amount_aud": 10.25,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-04",
+   "category": "Utilities",
+   "amount": 16.5,
+   "currency": "AUD",
+   "amount_aud": 16.5,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-04",
+   "category": "Workout",
+   "amount": 75.0,
+   "currency": "AUD",
+   "amount_aud": 75.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-04",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-05",
+   "category": "Dining",
+   "amount": 16.0,
+   "currency": "AUD",
+   "amount_aud": 16.0,
+   "notes": "Lunch",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-05",
+   "category": "Social/networking",
+   "amount": 26.13,
+   "currency": "AUD",
+   "amount_aud": 26.13,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-06",
+   "category": "Dining",
+   "amount": 54.0,
+   "currency": "AUD",
+   "amount_aud": 54.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-06",
+   "category": "Groceries",
+   "amount": 10.0,
+   "currency": "AUD",
+   "amount_aud": 10.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-06",
+   "category": "Travel",
+   "amount": 13.0,
+   "currency": "AUD",
+   "amount_aud": 13.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-07",
+   "category": "Shopping",
+   "amount": 12.0,
+   "currency": "AUD",
+   "amount_aud": 12.0,
+   "notes": "Bigw",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-07",
+   "category": "Social/networking",
+   "amount": 6.0,
+   "currency": "AUD",
+   "amount_aud": 6.0,
+   "notes": "Beer",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-07",
+   "category": "Dining",
+   "amount": 7.0,
+   "currency": "AUD",
+   "amount_aud": 7.0,
+   "notes": "Coffee",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-07",
+   "category": "Groceries",
+   "amount": 10.0,
+   "currency": "AUD",
+   "amount_aud": 10.0,
+   "notes": "Too good to go",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-08",
+   "category": "Travel",
+   "amount": 60.0,
+   "currency": "AUD",
+   "amount_aud": 60.0,
+   "notes": "camping for 13 June",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-10",
+   "category": "Shopping",
+   "amount": 43.64,
+   "currency": "AUD",
+   "amount_aud": 43.64,
+   "notes": "Temu",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-10",
+   "category": "Utilities",
+   "amount": 55.0,
+   "currency": "AUD",
+   "amount_aud": 55.0,
+   "notes": "Amaysim",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-10",
+   "category": "Groceries",
+   "amount": 28.5,
+   "currency": "AUD",
+   "amount_aud": 28.5,
+   "notes": "Asian groceries",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-10",
+   "category": "Groceries",
+   "amount": 20.0,
+   "currency": "AUD",
+   "amount_aud": 20.0,
+   "notes": "Woolies",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-12",
+   "category": "Health",
+   "amount": 7.0,
+   "currency": "AUD",
+   "amount_aud": 7.0,
+   "notes": "Meds",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-13",
+   "category": "Dining",
+   "amount": 9.0,
+   "currency": "AUD",
+   "amount_aud": 9.0,
+   "notes": "Breadfern",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-13",
+   "category": "Dining",
+   "amount": 20.0,
+   "currency": "AUD",
+   "amount_aud": 20.0,
+   "notes": "Coffee and Breakfast",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-14",
+   "category": "Shopping",
+   "amount": 500.0,
+   "currency": "AUD",
+   "amount_aud": 500.0,
+   "notes": "Projector",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-14",
+   "category": "Groceries",
+   "amount": 220.0,
+   "currency": "AUD",
+   "amount_aud": 220.0,
+   "notes": "Costco",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-15",
+   "category": "Shopping",
+   "amount": 110.0,
+   "currency": "AUD",
+   "amount_aud": 110.0,
+   "notes": "Amazon - bed sheets etc",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-17",
+   "category": "Groceries",
+   "amount": 33.94,
+   "currency": "AUD",
+   "amount_aud": 33.94,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-17",
+   "category": "Utilities",
+   "amount": 7.5,
+   "currency": "AUD",
+   "amount_aud": 7.5,
+   "notes": "Laundromat",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-18",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Workout",
+   "amount": 75.0,
+   "currency": "AUD",
+   "amount_aud": 75.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Transport",
+   "amount": 250.0,
+   "currency": "AUD",
+   "amount_aud": 250.0,
+   "notes": "Flight home",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Utilities",
+   "amount": 145.0,
+   "currency": "AUD",
+   "amount_aud": 145.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Social/networking",
+   "amount": 25.0,
+   "currency": "AUD",
+   "amount_aud": 25.0,
+   "notes": "Trail babes",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Health",
+   "amount": 90.0,
+   "currency": "AUD",
+   "amount_aud": 90.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-19",
+   "category": "Groceries",
+   "amount": 35.0,
+   "currency": "AUD",
+   "amount_aud": 35.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-20",
+   "category": "Dining",
+   "amount": 13.3,
+   "currency": "AUD",
+   "amount_aud": 13.3,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-20",
+   "category": "Transport",
+   "amount": 26.6,
+   "currency": "AUD",
+   "amount_aud": 26.6,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-20",
+   "category": "Shopping",
+   "amount": 7.0,
+   "currency": "AUD",
+   "amount_aud": 7.0,
+   "notes": "Daiso",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-21",
+   "category": "Shopping",
+   "amount": 230.0,
+   "currency": "AUD",
+   "amount_aud": 230.0,
+   "notes": "Temu",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-21",
+   "category": "Transport",
+   "amount": 25.72,
+   "currency": "AUD",
+   "amount_aud": 25.72,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-21",
+   "category": "Dining",
+   "amount": 45.0,
+   "currency": "AUD",
+   "amount_aud": 45.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-21",
+   "category": "Groceries",
+   "amount": 45.0,
+   "currency": "AUD",
+   "amount_aud": 45.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-22",
+   "category": "Groceries",
+   "amount": 14.0,
+   "currency": "AUD",
+   "amount_aud": 14.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-22",
+   "category": "Transport",
+   "amount": 10.0,
+   "currency": "AUD",
+   "amount_aud": 10.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-22",
+   "category": "Social/networking",
+   "amount": 5.0,
+   "currency": "AUD",
+   "amount_aud": 5.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-22",
+   "category": "Health",
+   "amount": 10.0,
+   "currency": "AUD",
+   "amount_aud": 10.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-25",
+   "category": "Groceries",
+   "amount": 11.0,
+   "currency": "AUD",
+   "amount_aud": 11.0,
+   "notes": "Woolies",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-26",
+   "category": "Groceries",
+   "amount": 17.0,
+   "currency": "AUD",
+   "amount_aud": 17.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-27",
+   "category": "Shopping",
+   "amount": 82.0,
+   "currency": "AUD",
+   "amount_aud": 82.0,
+   "notes": "gym shark",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-28",
+   "category": "Groceries",
+   "amount": 23.18,
+   "currency": "AUD",
+   "amount_aud": 23.18,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-28",
+   "category": "Groceries",
+   "amount": 24.95,
+   "currency": "AUD",
+   "amount_aud": 24.95,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-30",
+   "category": "Groceries",
+   "amount": 4.0,
+   "currency": "AUD",
+   "amount_aud": 4.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-06-30",
+   "category": "Transport",
+   "amount": 200.0,
+   "currency": "AUD",
+   "amount_aud": 200.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-01",
+   "category": "Health",
+   "amount": 34.32,
+   "currency": "AUD",
+   "amount_aud": 34.32,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-02",
+   "category": "Groceries",
+   "amount": 68.4,
+   "currency": "AUD",
+   "amount_aud": 68.4,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-02",
+   "category": "Health",
+   "amount": 120.6,
+   "currency": "AUD",
+   "amount_aud": 120.6,
+   "notes": "Protein",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-02",
+   "category": "Health",
+   "amount": 21.0,
+   "currency": "AUD",
+   "amount_aud": 21.0,
+   "notes": "Freddy's acupuncture",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-03",
+   "category": "Groceries",
+   "amount": 46.0,
+   "currency": "AUD",
+   "amount_aud": 46.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-03",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-03",
+   "category": "Workout",
+   "amount": 71.4,
+   "currency": "AUD",
+   "amount_aud": 71.4,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-04",
+   "category": "Transport",
+   "amount": 13.22,
+   "currency": "AUD",
+   "amount_aud": 13.22,
+   "notes": "DIDI cuz leg hurts",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-04",
+   "category": "Travel",
+   "amount": 37.0,
+   "currency": "AUD",
+   "amount_aud": 37.0,
+   "notes": "National park for august",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-04",
+   "category": "Dining",
+   "amount": 8.14,
+   "currency": "AUD",
+   "amount_aud": 8.14,
+   "notes": "Homestead",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-05",
+   "category": "Groceries",
+   "amount": 63.21,
+   "currency": "AUD",
+   "amount_aud": 63.21,
+   "notes": "Aldi",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-05",
+   "category": "Dining",
+   "amount": 41.0,
+   "currency": "AUD",
+   "amount_aud": 41.0,
+   "notes": "Thai food with Gaby",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-06",
+   "category": "Other",
+   "amount": 74.61,
+   "currency": "AUD",
+   "amount_aud": 74.61,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-06",
+   "category": "Subscriptions",
+   "amount": 15.0,
+   "currency": "AUD",
+   "amount_aud": 15.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-06",
+   "category": "Groceries",
+   "amount": 3.9,
+   "currency": "AUD",
+   "amount_aud": 3.9,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-06",
+   "category": "Social/networking",
+   "amount": 5.88,
+   "currency": "AUD",
+   "amount_aud": 5.88,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-07",
+   "category": "Social/networking",
+   "amount": 5.58,
+   "currency": "AUD",
+   "amount_aud": 5.58,
+   "notes": "Sun and Sifan",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-07",
+   "category": "Travel",
+   "amount": 312.0,
+   "currency": "AUD",
+   "amount_aud": 312.0,
+   "notes": "Overland",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-08",
+   "category": "Social/networking",
+   "amount": 20.0,
+   "currency": "AUD",
+   "amount_aud": 20.0,
+   "notes": "Banksia ha Husna",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-08",
+   "category": "Groceries",
+   "amount": 44.0,
+   "currency": "AUD",
+   "amount_aud": 44.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-08",
+   "category": "Shopping",
+   "amount": 110.0,
+   "currency": "AUD",
+   "amount_aud": 110.0,
+   "notes": "Amazon",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-09",
+   "category": "Social/networking",
+   "amount": 28.0,
+   "currency": "AUD",
+   "amount_aud": 28.0,
+   "notes": "She spins",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-09",
+   "category": "Social/networking",
+   "amount": 35.0,
+   "currency": "AUD",
+   "amount_aud": 35.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-10",
+   "category": "Dining",
+   "amount": 33.0,
+   "currency": "AUD",
+   "amount_aud": 33.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-10",
+   "category": "Utilities",
+   "amount": 55.0,
+   "currency": "AUD",
+   "amount_aud": 55.0,
+   "notes": "AmaysimNBN",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-10",
+   "category": "Social/networking",
+   "amount": 14.0,
+   "currency": "AUD",
+   "amount_aud": 14.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-10",
+   "category": "Shopping",
+   "amount": 70.0,
+   "currency": "AUD",
+   "amount_aud": 70.0,
+   "notes": "amazon",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-11",
+   "category": "Social/networking",
+   "amount": 24.0,
+   "currency": "AUD",
+   "amount_aud": 24.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-13",
+   "category": "Other",
+   "amount": 110.0,
+   "currency": "AUD",
+   "amount_aud": 110.0,
+   "notes": "hiking stove",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-16",
+   "category": "Dining",
+   "amount": 21.0,
+   "currency": "AUD",
+   "amount_aud": 21.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-17",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-17",
+   "category": "Workout",
+   "amount": 71.0,
+   "currency": "AUD",
+   "amount_aud": 71.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-18",
+   "category": "Transport",
+   "amount": 12.0,
+   "currency": "AUD",
+   "amount_aud": 12.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-19",
+   "category": "Dining",
+   "amount": 28.0,
+   "currency": "AUD",
+   "amount_aud": 28.0,
+   "notes": "christmas market",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-19",
+   "category": "Social/networking",
+   "amount": 13.0,
+   "currency": "AUD",
+   "amount_aud": 13.0,
+   "notes": "catch up with Joanne",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-19",
+   "category": "Transport",
+   "amount": 13.0,
+   "currency": "AUD",
+   "amount_aud": 13.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-20",
+   "category": "Social/networking",
+   "amount": 33.0,
+   "currency": "AUD",
+   "amount_aud": 33.0,
+   "notes": "movies",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-20",
+   "category": "Dining",
+   "amount": 5.3,
+   "currency": "AUD",
+   "amount_aud": 5.3,
+   "notes": "coffee",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-21",
+   "category": "Social/networking",
+   "amount": 5.3,
+   "currency": "AUD",
+   "amount_aud": 5.3,
+   "notes": "coffee with Stefan",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-21",
+   "category": "Dining",
+   "amount": 55.0,
+   "currency": "AUD",
+   "amount_aud": 55.0,
+   "notes": "Chargrill charlie",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-22",
+   "category": "Workout",
+   "amount": 33.5,
+   "currency": "AUD",
+   "amount_aud": 33.5,
+   "notes": "climbing",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-22",
+   "category": "Groceries",
+   "amount": 17.0,
+   "currency": "AUD",
+   "amount_aud": 17.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-23",
+   "category": "Health",
+   "amount": 35.0,
+   "currency": "AUD",
+   "amount_aud": 35.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-23",
+   "category": "Health",
+   "amount": 21.0,
+   "currency": "AUD",
+   "amount_aud": 21.0,
+   "notes": "accu",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-23",
+   "category": "Groceries",
+   "amount": 14.0,
+   "currency": "AUD",
+   "amount_aud": 14.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-24",
+   "category": "Groceries",
+   "amount": 7.5,
+   "currency": "AUD",
+   "amount_aud": 7.5,
+   "notes": "drink",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-24",
+   "category": "Other",
+   "amount": 15.0,
+   "currency": "AUD",
+   "amount_aud": 15.0,
+   "notes": "fee",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-25",
+   "category": "Dining",
+   "amount": 50.8,
+   "currency": "AUD",
+   "amount_aud": 50.8,
+   "notes": "Rara",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-25",
+   "category": "Groceries",
+   "amount": 83.0,
+   "currency": "AUD",
+   "amount_aud": 83.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-26",
+   "category": "Groceries",
+   "amount": 67.0,
+   "currency": "AUD",
+   "amount_aud": 67.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-26",
+   "category": "Dining",
+   "amount": 45.0,
+   "currency": "AUD",
+   "amount_aud": 45.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-28",
+   "category": "Dining",
+   "amount": 20.0,
+   "currency": "AUD",
+   "amount_aud": 20.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-29",
+   "category": "Utilities",
+   "amount": 134.0,
+   "currency": "AUD",
+   "amount_aud": 134.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-30",
+   "category": "Transport",
+   "amount": 200.0,
+   "currency": "AUD",
+   "amount_aud": 200.0,
+   "notes": "Pre-calculate",
+   "payment": ""
+  },
+  {
+   "date": "2026-07-30",
+   "category": "Groceries",
+   "amount": 62.0,
+   "currency": "AUD",
+   "amount_aud": 62.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-01",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-01",
+   "category": "Workout",
+   "amount": 71.4,
+   "currency": "AUD",
+   "amount_aud": 71.4,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-01",
+   "category": "Groceries",
+   "amount": 37.0,
+   "currency": "AUD",
+   "amount_aud": 37.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-02",
+   "category": "Dining",
+   "amount": 32.0,
+   "currency": "AUD",
+   "amount_aud": 32.0,
+   "notes": "brunch",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-03",
+   "category": "Dining",
+   "amount": 17.0,
+   "currency": "AUD",
+   "amount_aud": 17.0,
+   "notes": "coffee/lunch",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-04",
+   "category": "Dining",
+   "amount": 39.22,
+   "currency": "AUD",
+   "amount_aud": 39.22,
+   "notes": "Great Aunt Authent Randwick (Sq)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-04",
+   "category": "Groceries",
+   "amount": 24.69,
+   "currency": "AUD",
+   "amount_aud": 24.69,
+   "notes": "Woolworths Redfern",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-06",
+   "category": "Groceries",
+   "amount": 2.55,
+   "currency": "AUD",
+   "amount_aud": 2.55,
+   "notes": "Woolworths Metro Redfern",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-06",
+   "category": "Health",
+   "amount": 23.98,
+   "currency": "AUD",
+   "amount_aud": 23.98,
+   "notes": "Chemist Warehouse Oxford St (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-06",
+   "category": "Health",
+   "amount": 64.47,
+   "currency": "AUD",
+   "amount_aud": 64.47,
+   "notes": "Chemist Warehouse Oxford St (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-06",
+   "category": "Subscriptions",
+   "amount": 14.99,
+   "currency": "AUD",
+   "amount_aud": 14.99,
+   "notes": "Apple App Store",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-07",
+   "category": "Groceries",
+   "amount": 41.88,
+   "currency": "AUD",
+   "amount_aud": 41.88,
+   "notes": "Woolworths Redfern (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-08",
+   "category": "Groceries",
+   "amount": 22.48,
+   "currency": "AUD",
+   "amount_aud": 22.48,
+   "notes": "ALDI Ashfield",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-08",
+   "category": "Dining",
+   "amount": 15.19,
+   "currency": "AUD",
+   "amount_aud": 15.19,
+   "notes": "Single O Eveleigh (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-09",
+   "category": "Groceries",
+   "amount": 2.8,
+   "currency": "AUD",
+   "amount_aud": 2.8,
+   "notes": "Woolworths Metro Redfern (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-09",
+   "category": "Groceries",
+   "amount": 15.57,
+   "currency": "AUD",
+   "amount_aud": 15.57,
+   "notes": "Foodworks Redfern (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-09",
+   "category": "Transport",
+   "amount": 12.23,
+   "currency": "AUD",
+   "amount_aud": 12.23,
+   "notes": "Didi",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-10",
+   "category": "Utilities",
+   "amount": 55.0,
+   "currency": "AUD",
+   "amount_aud": 55.0,
+   "notes": "",
+   "payment": ""
+  },
+  {
+   "date": "2026-08-11",
+   "category": "Groceries",
+   "amount": 20.7,
+   "currency": "AUD",
+   "amount_aud": 20.7,
+   "notes": "Woolworths Redfern",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-11",
+   "category": "Subscriptions",
+   "amount": 9.99,
+   "currency": "AUD",
+   "amount_aud": 9.99,
+   "notes": "Amazon Prime Membership",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-12",
+   "category": "Groceries",
+   "amount": 22.55,
+   "currency": "AUD",
+   "amount_aud": 22.55,
+   "notes": "Woolworths Ashfield",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-13",
+   "category": "Social/networking",
+   "amount": 15.28,
+   "currency": "AUD",
+   "amount_aud": 15.28,
+   "notes": "Babylon Rooftop Westfield Sydney",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-14",
+   "category": "Groceries",
+   "amount": 60.57,
+   "currency": "AUD",
+   "amount_aud": 60.57,
+   "notes": "Woolworths Redfern (pending)",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-14",
+   "category": "Rent",
+   "amount": 1400.0,
+   "currency": "AUD",
+   "amount_aud": 1400.0,
+   "notes": "Sydney Side Real Estate (CommBank transfer)",
+   "payment": "Transfer"
+  },
+  {
+   "date": "2026-08-14",
+   "category": "Transport",
+   "amount": 200.0,
+   "currency": "AUD",
+   "amount_aud": 200.0,
+   "notes": "Max cap",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-14",
+   "category": "Workout",
+   "amount": 41.4,
+   "currency": "AUD",
+   "amount_aud": 41.4,
+   "notes": "One Playground Haymarket",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-14",
+   "category": "Shopping",
+   "amount": 4000.0,
+   "currency": "THB",
+   "amount_aud": 170.25,
+   "notes": "shopee",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-15",
+   "category": "Groceries",
+   "amount": 14.85,
+   "currency": "AUD",
+   "amount_aud": 14.85,
+   "notes": "Breadtop Chatswood",
+   "payment": "Card"
+  },
+  {
+   "date": "2026-08-16",
+   "category": "Dining",
+   "amount": 7.61,
+   "currency": "AUD",
+   "amount_aud": 7.61,
+   "notes": "Cafe Nho Marrickville (pending)",
+   "payment": "Card"
+  }
+ ]
+}
