@@ -3,8 +3,8 @@ load("parser.js");
 
 var CATS = [
   { name: "Rent", keywords: ["rent","real estate"] },
-  { name: "Groceries", keywords: ["woolworths","woolies","aldi","costco","groceries"] },
-  { name: "Dining", keywords: ["coffee","matcha","lunch","kebab","cafe"] },
+  { name: "Groceries", keywords: ["woolworths","woolies","aldi","coles","costco","groceries"] },
+  { name: "Dining", keywords: ["coffee","matcha","lunch","kebab","cafe","maccas","gyg","uber eats","doordash"] },
   { name: "Transport", keywords: ["didi","uber","flight","opal","max cap"] },
   { name: "Workout", keywords: ["climbing","gym","one playground"] },
   { name: "Health", keywords: ["chemist","meds","protein"] },
@@ -55,6 +55,18 @@ eq([r.categoryName], ["Transport"], "multi-word keyword 'max cap'");
 
 r = parseSentence("6.5 matcha with sid", CATS, TODAY);
 eq([r.amount, r.categoryName, r.notes], [6.5, "Dining", "matcha with sid"], "notes keep remaining words");
+
+// --- natural-language brands & longest-match ---
+r = parseSentence("80 coles", CATS, TODAY);
+eq([r.categoryName, r.amount], ["Groceries", 80], "brand: coles → Groceries");
+r = parseSentence("12 maccas", CATS, TODAY);
+eq([r.categoryName], ["Dining"], "brand: maccas → Dining");
+r = parseSentence("30 uber eats", CATS, TODAY);
+eq([r.categoryName], ["Dining"], "longest match: 'uber eats' beats 'uber' → Dining");
+r = parseSentence("25 uber home", CATS, TODAY);
+eq([r.categoryName], ["Transport"], "'uber' alone → Transport");
+r = parseSentence("20 doordash", CATS, TODAY);
+eq([r.categoryName], ["Dining"], "delivery: doordash → Dining");
 
 // --- splitExpenses ---
 eq(splitExpenses("5 coffee and 10 lunch"), ["5 coffee", "10 lunch"], "and splits two amounts");

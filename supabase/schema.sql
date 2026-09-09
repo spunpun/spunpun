@@ -39,12 +39,12 @@ create table if not exists settings (
 -- ---- Seed categories + parser keywords (matches the app's seed.data.json) ----
 insert into categories (name, keywords) values
   ('Rent', array['rent','real estate','sydney side','landlord','lease']),
-  ('Groceries', array['woolworths','woolies','aldi','coles','costco','foodworks','iga','groceries','grocery','chargrill','too good to go','supermarket','market']),
-  ('Dining', array['coffee','matcha','lunch','breakfast','brunch','dinner','kebab','rara','breadfern','cafe','restaurant','thai food','homestead','food','snack','bakery']),
-  ('Transport', array['didi','uber','taxi','flight','opal','train','bus','max cap','transport','fuel','petrol','toll','grab']),
+  ('Groceries', array['woolworths','woolies','aldi','coles','costco','foodworks','iga','groceries','grocery','chargrill','too good to go','supermarket','market','woolworth','harris farm','foodland','drakes','spudshed','farmers market','butcher','greengrocer','asian grocery','asian groceries','produce']),
+  ('Dining', array['coffee','matcha','lunch','breakfast','brunch','dinner','kebab','rara','breadfern','cafe','restaurant','thai food','homestead','food','snack','bakery','café','latte','flat white','espresso','cappuccino','chai','boba','bubble tea','bistro','eatery','diner','takeaway','take away','takeout','mcdonalds','maccas','kfc','hungry jacks','hungry jack''s','subway','guzman y gomez','guzman','gyg','nandos','nando''s','dominos','domino''s','pizza','burger','grill''d','grilld','sushi','sushi hub','ramen','pho','banh mi','thai','yum cha','dim sum','dumplings','din tai fung','curry','hsp','halal snack pack','falafel','wrap','sandwich','salad','poke','poke bowl','noodles','laksa','pad thai','fish and chips','taco','tacos','mad mex','zambrero','bakers delight','breadtop','brumby''s','pastry','croissant','gelato','ice cream','messina','dessert','uber eats','ubereats','doordash','door dash','deliveroo','menulog']),
+  ('Transport', array['didi','uber','taxi','flight','opal','train','bus','max cap','transport','fuel','petrol','toll','grab','go card','myki','linkt','bp','shell','ampol','caltex','parking','ferry','rideshare','ola','bolt']),
   ('Utilities', array['laundromat','amaysim','nbn','internet','electricity','water bill','gas bill','phone bill','utility','utilities']),
   ('Workout', array['climbing','bouldering','gym','playground','yoga','pilates','workout','fitness','one playground']),
-  ('Social/networking', array['beer','movies','theater','theatre','catch up','drinks','rooftop','bar','networking','social','party','concert']),
+  ('Social/networking', array['beer','movies','theater','theatre','catch up','drinks','rooftop','bar','networking','social','party','concert','pub','cocktail','brewery','wine bar','night out','after work']),
   ('Subscriptions', array['app store','amazon prime','netflix','spotify','subscription','membership','icloud','youtube premium']),
   ('Travel', array['camping','overland','national park','hotel','airbnb','travel','trip','holiday','hostel']),
   ('Health', array['chemist','chemist warehouse','meds','medicine','protein','acupuncture','pharmacy','doctor','dentist','clinic','supplement']),
